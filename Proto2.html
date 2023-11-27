@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Prototype Inhertiance</h1>
+</body>
+</html>
+<script >
+    function Automobiles(model, color, maxspeed, wheels, fueltype){
+ this.model = model;
+ this.color = color;
+ this.maxspeed = maxspeed;
+ this.wheels = wheels;
+ this.fueltype = fueltype
+}
+
+Automobiles.prototype.mileage = function(m){
+    this.mileage = m;
+}
+
+Automobiles.prototype.servicetime = function (s) {
+    this.servicetime = s;
+}
+
+Automobiles.prototype.life = function(l){
+    this.life = l;
+}
+
+
+let v1 = new Automobiles("Suv500", "Red", 150, 4, "Petrol")
+let v2 = new Automobiles("Thar", "Black", 180, 6, "Petrol")
+let v3 = new Automobiles("Bolero", "White", 130, 4, "Diesel")
+
+v1.mileage(45)
+v2.servicetime("3months")
+let v4 = Object.create(v3)
+console.log(v4)
+console.log(v2)
+
+v3.life("85years")
+console.log(v3)
+let v5 =Object.create(v3)
+console.log(v5)
+
+
+</script>
