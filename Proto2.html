@@ -6,45 +6,67 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Prototype Inhertiance</h1>
+    <h1>Prototype Inheritance</h1>
 </body>
 </html>
-<script >
-    function Automobiles(model, color, maxspeed, wheels, fueltype){
- this.model = model;
- this.color = color;
- this.maxspeed = maxspeed;
- this.wheels = wheels;
- this.fueltype = fueltype
-}
+<script>
+    function Vehicle(brand, model, speed, fuelType){   // Constructor function for Vehicle
+        this.brand = brand;
+        this.model = model;
+        this.speed = speed;
+        this.fuelType = fuelType;
+    }
 
-Automobiles.prototype.mileage = function(m){
-    this.mileage = m;
-}
+    let v1 = new Vehicle("BMW", "BMW600", 150, "Diesel");
+    let v2 = new Vehicle("Mhindra", "thar450", 190, "Diesel");
 
-Automobiles.prototype.servicetime = function (s) {
-    this.servicetime = s;
-}
+    Vehicle.prototype.accelerate = function(acc){     // Prototype methods for Vehicle
+        this.speed += acc;
+        console.log(`${this.brand} Speed was increasing. current speed ${this.speed}`);
+    };
+    Vehicle.prototype.brake = function(){
+        this.speed = 0;
+        console.log(`${this.brand} is stopped`);
+    };
+    Vehicle.prototype.refuel = function(){
+        console.log(`${this.fuelType} is filled in ${this.brand}`);
+    };
 
-Automobiles.prototype.life = function(l){
-    this.life = l;
-}
+    function car(brand, model, speed, fuelType, numberofWheels){     // Constructor function for Car, inheriting from Vehicle
+        Vehicle.call(this, brand, model, speed, fuelType);
+        this.numberofWheels = numberofWheels || 4;
+    }
+
+    car.prototype = Object.create(Vehicle.prototype);       // Setting up prototype chain for inheritance
+
+    car.prototype.honk = function () {      // Prototype method specific to Car
+        console.log(`${this.brand} is honking`);
+    };
+
+    let c1 = new car("maruti","suzuki",130, "Petrol", "4");
+    let c2 = new car("Audi","A4",230, "Diesel", "8");
 
 
-let v1 = new Automobiles("Suv500", "Red", 150, 4, "Petrol")
-let v2 = new Automobiles("Thar", "Black", 180, 6, "Petrol")
-let v3 = new Automobiles("Bolero", "White", 130, 4, "Diesel")
+    function Airplane(brand, model, speed, fuelType, numberofEngines, haslandingGaer){     // Constructor function for Airplane, inheriting from Vehicle
+        Vehicle.call(this, brand, model, speed, fuelType);
+        this.numberofEngines =numberofEngines;
+        this.haslandingGaer = haslandingGaer;
+    }
 
-v1.mileage(45)
-v2.servicetime("3months")
-let v4 = Object.create(v3)
-console.log(v4)
-console.log(v2)
+    Airplane.prototype = Object.create(Vehicle.prototype);       // Setting up prototype chain for inheritance
 
-v3.life("85years")
-console.log(v3)
-let v5 =Object.create(v3)
-console.log(v5)
+    Airplane.prototype.takeoff = function () {  // Prototype method specific to Airplane
+        console.log(`${this.brand} is taking off`)
+    };
 
+    let a1 = new Airplane("indigo","airbus400",1300, "Diesel", "8" , true);
+    let a2 = new Airplane("Qatar airways","airbus700",2500, "Diesel", "16" , true);
 
+    v1.brake()
+    v2.accelerate(40)
+    console.log(v2)
+    c2.honk()
+    console.log(c1)
+    a2.takeoff()
+    console.log(a2)
 </script>
